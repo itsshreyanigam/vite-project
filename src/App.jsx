@@ -1,3 +1,4 @@
+import { Todo } from "./components/Todo/Todo";
 export const App = () => {
-  return <h1>Hello Shreya</h1>
+  return <section>{<Todo/>}</section>
 };
