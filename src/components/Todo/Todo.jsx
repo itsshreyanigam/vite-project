@@ -1,10 +1,12 @@
 import "./Todo.css";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdCheck, MdDeleteForever } from "react-icons/md";
 export const Todo = () => {
     const [inputValue, setInputValue] = useState("");
 
     const [task, setTask] = useState([]);
+
+    const [dateTime, setDateTime] = useState("");
 
     const handleInputChange = (value) => {
         setInputValue(value); //the moment we press any key it will change the value
@@ -23,10 +25,23 @@ export const Todo = () => {
         setTask((prevTask) => [...prevTask, inputValue]); //append in the array 
 
         setInputValue(""); //after adding clear the input field
-    }
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date();
+            const today = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+            setDateTime(`${today} - ${time}`); //update the date time every second
+        }, 1000);
+
+        return () => clearInterval(interval); //clean up the interval when component unmounts
+    }, []);
+
     return <section className="todo-container">
         <header>
             <h1>Todo List</h1>
+            <h2 className="date-time">{dateTime}</h2>
         </header>
         <section className="form">
             <form onSubmit={handleFormSubmit}>
