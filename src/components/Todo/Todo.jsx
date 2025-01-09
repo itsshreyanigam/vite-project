@@ -14,7 +14,7 @@ export const Todo = () => {
 
     const handleFormSubmit = (event) => {
 
-        event.preventDefault(); //this will prevent the form from submitting and causing a page reload
+        event.preventDefault(); //this will prevent the form from submitting & causing a page reload
 
         if(!inputValue){
             setInputValue("");
@@ -25,6 +25,17 @@ export const Todo = () => {
         setTask((prevTask) => [...prevTask, inputValue]); //append in the array 
 
         setInputValue(""); //after adding clear the input field
+    };
+
+    const handleDeleteTodo = (value) => {
+        const updatedTask = task.filter(
+            (curTask) => curTask !== value
+        ); //display elements that don't match the value 
+        setTask(updatedTask); //update the task array
+    };
+
+    const handleClearTodoData = () => {
+        setTask([]); //clear the task array
     };
 
     useEffect(() => {
@@ -68,13 +79,21 @@ export const Todo = () => {
                             <button className="check-btn">
                                 <MdCheck />
                             </button>
-                            <button className="delete-btn">
+                            <button 
+                                className="delete-btn" 
+                                onClick={() => handleDeleteTodo(curTask)}
+                            >
                                 <MdDeleteForever />
                             </button>
                         </li>
                     })
                 }
             </ul>
+        </section>
+        <section>
+            <button className="clear-btn" onClick={handleClearTodoData}>
+                Clear All
+            </button>
         </section>
     </section>
 }
