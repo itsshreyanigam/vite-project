@@ -5,6 +5,27 @@
   justify-content: center;
 } */
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+h1, h2, h3, h4, h5, h6{
+  color: #fff;
+  font-weight: 900;
+}
+
+h1{
+  font-size: 3.2rem;
+  font-weight: bold;
+}
+
 .todo-container {
     align-items: center;
     display: flex;
@@ -68,7 +89,7 @@
     transition: background-color 200ms ease-in-out;
     width: 100%;
     background-color: #f2f3f4;
-    color: var(--primary-color);
+    color: black;
   }
   
   form input:hover {

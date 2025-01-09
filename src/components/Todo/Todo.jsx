@@ -1,14 +1,28 @@
 import "./Todo.css";
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { MdCheck, MdDeleteForever } from "react-icons/md";
 export const Todo = () => {
     const [inputValue, setInputValue] = useState("");
+
+    const [task, setTask] = useState([]);
 
     const handleInputChange = (value) => {
         setInputValue(value); //the moment we press any key it will change the value
     };
 
     const handleFormSubmit = (event) => {
+
         event.preventDefault(); //this will prevent the form from submitting and causing a page reload
+
+        if(!inputValue){
+            setInputValue("");
+            return; //if no input do not change the value
+        } 
+        if(task.includes(inputValue)) return; //no duplicate values
+
+        setTask((prevTask) => [...prevTask, inputValue]); //append in the array 
+
+        setInputValue(""); //after adding clear the input field
     }
     return <section className="todo-container">
         <header>
@@ -29,6 +43,23 @@ export const Todo = () => {
                     <button type="submit" className="todo-btn">Add Task</button>
                 </div>
             </form>
+        </section>
+        <section className="myUnOrdList">
+            <ul>
+                {
+                    task.map((curTask, index) => {
+                        return <li key={index} className="todo-item">
+                            <span>{curTask}</span>
+                            <button className="check-btn">
+                                <MdCheck />
+                            </button>
+                            <button className="delete-btn">
+                                <MdDeleteForever />
+                            </button>
+                        </li>
+                    })
+                }
+            </ul>
         </section>
     </section>
 }
