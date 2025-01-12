@@ -2,10 +2,13 @@ import "./Todo.css";
 import { useEffect, useState } from 'react';
 import { MdCheck, MdDeleteForever } from "react-icons/md";
 export const Todo = () => {
-
+     const todoKey = "reactTodo";
     const [inputValue, setInputValue] = useState({ content: "" });
     const [dateTime, setDateTime] = useState("");
-    const [task, setTask] = useState([]);
+    const [task, setTask] = useState(() => {
+        const savedTask = localStorage.getItem(todoKey); //getting the data from local storage
+        return savedTask ? JSON.parse(savedTask) : [];
+    });
 
     const handleInputChange = (value) => {
         setInputValue({
@@ -38,6 +41,8 @@ export const Todo = () => {
             checked: false
         });
     };
+
+    localStorage.setItem(todoKey, JSON.stringify(task)); //save the task in local storage
 
     useEffect(() => {
         const interval = setInterval(() => {
